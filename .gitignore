@@ -5,3 +5,8 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Tar files in offline cache
+offline-cache/**/*.tar
+offline-cache/**/*.tar.gz
+offline-cache/**/*.tgz
