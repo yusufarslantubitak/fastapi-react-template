@@ -1,0 +1,12 @@
+{
+  "dashboard": "Dashboard",
+  "items": "Items",
+  "mapView": "Map View",
+  "admin": "Admin",
+  "adminPanel": "Admin Panel",
+  "adminBadge": "Admin",
+  "backToApp": "Back to App",
+  "settings": "User Settings",
+  "logout": "Log Out",
+  "language": "Language"
+}

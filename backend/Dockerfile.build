@@ -1,0 +1,17 @@
+# Build command (run this from the project root):
+# docker build --network host -t backend-builder:latest -f backend/Dockerfile.build .
+
+FROM python:3.14-slim
+
+# Tell uv to build a virtualenv in a dedicated directory /app/.venv
+ENV UV_PROJECT_ENVIRONMENT=/app/.venv
+ENV UV_PYTHON_DOWNLOADS=never
+ENV PATH="/app/.venv/bin:$PATH"
+
+WORKDIR /app/backend
+COPY backend/bin/uv/ /usr/local/bin/
+RUN chmod +x /usr/local/bin/uv /usr/local/bin/uvx
+
+COPY backend/pyproject.toml backend/uv.lock backend/uv.toml ./
+
+RUN uv sync --frozen --no-dev --no-install-project

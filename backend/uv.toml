@@ -1,0 +1,2 @@
+index-url = "http://localhost:8081/repository/pypi-all/simple"
+allow-insecure-host = ["localhost", "127.0.0.1"]

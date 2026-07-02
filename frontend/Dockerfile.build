@@ -1,0 +1,12 @@
+# Build command (run this from the project root):
+# docker build --network host -t frontend-builder:latest -f frontend/Dockerfile.build .
+
+FROM node:22-slim
+
+WORKDIR /app/frontend
+
+# Copy dependency definition files
+COPY frontend/package.json frontend/package-lock.json frontend/.npmrc* ./
+
+# Install dependencies
+RUN npm ci --no-audit --no-fund

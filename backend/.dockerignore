@@ -1,0 +1,33 @@
+# ========================
+# Python & Build Caches
+# ========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+app.egg-info/
+
+# ========================
+# Testing & Linting Tools
+# ========================
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ========================
+# Virtual Environments
+# ========================
+.venv/
+venv/
+env/
+
+# ========================
+# Git & OS Cruft
+# ========================
+.git/
+.gitignore
+.DS_Store
+Thumbs.db
+

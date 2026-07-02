@@ -1,0 +1,16 @@
+{
+  "title": "Hesap oluşturun",
+  "fullName": "Ad Soyad",
+  "fullNamePlaceholder": "Kullanıcı",
+  "email": "E-posta",
+  "password": "Şifre",
+  "confirmPassword": "Şifreyi Onayla",
+  "submit": "Kayıt Ol",
+  "alreadyAccount": "Zaten hesabınız var mı?",
+  "logIn": "Giriş yapın",
+  "fullNameRequired": "Ad Soyad gereklidir",
+  "passwordRequired": "Şifre gereklidir",
+  "passwordMin": "Şifre en az 8 karakter olmalıdır",
+  "confirmPasswordRequired": "Şifre onayı gereklidir",
+  "passwordsMustMatch": "Şifreler eşleşmiyor"
+}

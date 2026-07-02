@@ -1,0 +1,4 @@
+{
+  "greeting": "Hi, {{name}} 👋",
+  "welcomeBack": "Welcome back, nice to see you again!!!"
+}

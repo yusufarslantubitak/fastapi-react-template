@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "shadcn": {
+      "description": "Manages shadcn components and projects — adding, searching, fixing, debugging, styling, and composing UI, including chat interfaces. Provides project context, component docs, and usage examples. Applies when working with shadcn/ui, component registries, presets, --preset codes, or any project with a components.json file. Also triggers for \"shadcn init\", \"create an app with --preset\", or \"switch to --preset\".",
+      "skillPath": ".agents/skills/shadcn/SKILL.md"
+    },
+    "fastapi": {
+      "description": "FastAPI best practices and conventions. Use when working with FastAPI APIs, Pydantic models, dependencies, streaming responses including Server-Sent Events (SSE), and serving frontend apps. Keeps FastAPI code clean and up to date with the latest features and patterns.",
+      "skillPath": ".agents/skills/fastapi/SKILL.md"
+    },
+    "sqlmodel": {
+      "description": "Use when writing or reviewing Python code with SQLModel, especially models, sessions, queries, FastAPI integration, relationships, link models, creates, updates, and deletes.",
+      "skillPath": ".agents/skills/sqlmodel/SKILL.md"
+    },
+    "tanstack-frontend": {
+      "description": "Guidelines for Vite + React + TanStack Router + TanStack Query + shadcn/ui frontend development, including file-based routing, query hooks, mutations, and form handling.",
+      "skillPath": ".agents/skills/tanstack-frontend/SKILL.md"
+    },
+    "karpathy-guidelines": {
+      "description": "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.",
+      "skillPath": ".agents/skills/karpathy-guidelines/SKILL.md"
+    },
+    "backend-architecture": {
+      "description": "Backend architecture guidelines using the Controller-Service-Repository (CSR) pattern and modular DTO layout.",
+      "skillPath": ".agents/skills/backend-architecture/SKILL.md"
+    },
+    "frontend-architecture": {
+      "description": "Frontend architecture guidelines using Feature-Sliced Design (FSD) and co-located React components/hooks.",
+      "skillPath": ".agents/skills/frontend-architecture/SKILL.md"
+    },
+    "translations": {
+      "description": "Guidelines for managing i18next translations in the frontend. Use when adding, modifying, or reviewing translated strings and locale JSON files.",
+      "skillPath": ".agents/skills/translations/SKILL.md"
+    },
+    "zustand": {
+      "description": "Guidelines for state management in React using Zustand, emphasizing performant selectors, correct state updates, and avoiding side-effects (like spreading items or state in selectors).",
+      "skillPath": ".agents/skills/zustand/SKILL.md"
+    }
+  }
+}

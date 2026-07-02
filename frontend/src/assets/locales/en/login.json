@@ -1,0 +1,10 @@
+{
+  "title": "Login to your account",
+  "email": "Email",
+  "password": "Password",
+  "submit": "Log In",
+  "noAccount": "Don't have an account yet?",
+  "signUp": "Sign up",
+  "passwordRequired": "Password is required",
+  "passwordMin": "Password must be at least 8 characters"
+}

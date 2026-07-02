@@ -1,0 +1,16 @@
+{
+  "title": "Create an account",
+  "fullName": "Full Name",
+  "fullNamePlaceholder": "User",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "submit": "Sign Up",
+  "alreadyAccount": "Already have an account?",
+  "logIn": "Log in",
+  "fullNameRequired": "Full Name is required",
+  "passwordRequired": "Password is required",
+  "passwordMin": "Password must be at least 8 characters",
+  "confirmPasswordRequired": "Password confirmation is required",
+  "passwordsMustMatch": "The passwords don't match"
+}

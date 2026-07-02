@@ -1,0 +1,10 @@
+{
+  "title": "Hesabınıza giriş yapın",
+  "email": "E-posta",
+  "password": "Şifre",
+  "submit": "Giriş Yap",
+  "noAccount": "Henüz hesabınız yok mu?",
+  "signUp": "Kayıt ol",
+  "passwordRequired": "Şifre gereklidir",
+  "passwordMin": "Şifre en az 8 karakter olmalıdır"
+}
