@@ -31,6 +31,10 @@ import markerIcon from "leaflet/dist/images/marker-icon.png"
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png"
 import markerShadow from "leaflet/dist/images/marker-shadow.png"
 
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
 delete (L.Icon.Default.prototype as any)._getIconUrl
 L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
@@ -183,6 +187,19 @@ export const getShapeGeometry = (type: string, layer: any) => {
   return {}
 }
 
+const isValidTileUrl = (url: string): boolean => {
+  if (!url) return false
+  // Replace standard Leaflet placeholders {s}, {z}, {x}, {y}, {-y}, {r}
+  // with a dummy valid alphanumeric character to pass standard URL parsing.
+  const normalized = url.replace(/\{[a-zA-Z0-9-]+\}/g, "1")
+  try {
+    const parsed = new URL(normalized)
+    return parsed.protocol === "http:" || parsed.protocol === "https:"
+  } catch (_) {
+    return false
+  }
+}
+
 // 1. Geoman Drawing Controls Component
 interface GeomanControlsProps {
   enabled: boolean
@@ -280,6 +297,10 @@ export default function LeafletMap() {
   const [showDrawingTools, setShowDrawingTools] = useState(true)
   const [drawnShapes, setDrawnShapes] = useState<DrawnShape[]>([])
   const { t } = useTranslation()
+  const DEFAULT_TILE_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  const [tileUrl, setTileUrl] = useState(DEFAULT_TILE_URL)
+  const [tileUrlInput, setTileUrlInput] = useState(DEFAULT_TILE_URL)
+  const [tileUrlError, setTileUrlError] = useState<string | null>(null)
 
   const handleDrawCreate = (info: Omit<DrawnShape, "id">) => {
     setDrawnShapes((prev) => [...prev, { ...info, id: Date.now() }])
@@ -287,6 +308,26 @@ export default function LeafletMap() {
 
   const clearDrawnShapes = () => {
     setDrawnShapes([])
+  }
+
+  const handleApplyTileUrl = () => {
+    const trimmed = tileUrlInput.trim()
+    if (!trimmed) {
+      setTileUrlError(t("map.invalidTileUrl"))
+      return
+    }
+    if (isValidTileUrl(trimmed)) {
+      setTileUrl(trimmed)
+      setTileUrlError(null)
+    } else {
+      setTileUrlError(t("map.invalidTileUrl"))
+    }
+  }
+
+  const handleResetTileUrl = () => {
+    setTileUrl(DEFAULT_TILE_URL)
+    setTileUrlInput(DEFAULT_TILE_URL)
+    setTileUrlError(null)
   }
 
   return (
@@ -331,6 +372,65 @@ export default function LeafletMap() {
             />
             <span className="text-sm font-medium">{t("map.drawing")}</span>
           </label>
+        </div>
+
+        {/* Custom Tile URL Configuration */}
+        <div className="flex flex-col gap-3 border-t pt-4">
+          <Label
+            htmlFor="tile-url-input"
+            className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+          >
+            {t("map.tileUrlLabel")}
+          </Label>
+          <div className="flex flex-col gap-2">
+            <Input
+              id="tile-url-input"
+              type="text"
+              placeholder={t("map.tileUrlPlaceholder")}
+              value={tileUrlInput}
+              onChange={(e) => {
+                setTileUrlInput(e.target.value)
+                if (tileUrlError) {
+                  setTileUrlError(null)
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleApplyTileUrl()
+                }
+              }}
+              className={
+                tileUrlError
+                  ? "border-destructive focus-visible:ring-destructive/20 animate-shake"
+                  : ""
+              }
+            />
+            {tileUrlError && (
+              <span className="text-[11px] text-destructive font-medium animate-in fade-in slide-in-from-top-1 duration-200">
+                {tileUrlError}
+              </span>
+            )}
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                onClick={handleApplyTileUrl}
+                size="sm"
+                className="flex-1"
+              >
+                {t("map.apply")}
+              </Button>
+              {tileUrl !== DEFAULT_TILE_URL && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleResetTileUrl}
+                  size="sm"
+                >
+                  {t("map.reset")}
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Drawn Shapes List */}
@@ -385,8 +485,9 @@ export default function LeafletMap() {
           style={{ height: "100%", width: "100%" }}
         >
           <TileLayer
+            key={tileUrl}
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url={tileUrl}
           />
 
           {/* Marker Clustering */}
