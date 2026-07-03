@@ -9,7 +9,7 @@ This repository contains a simplified full stack web application template config
 Before starting, make sure you have the following installed on your computer:
 
 - **Docker**: For running the database container.
-- **Python (3.14)**: The programming language for the backend (we suggest using [pyenv](https://github.com/pyenv/pyenv) to manage Python versions).
+- **Python (3.13.12)**: The programming language for the backend (we suggest using [pyenv](https://github.com/pyenv/pyenv) to manage Python versions).
 - **uv**: Python package installer and resolver.
 - **Node.js (22)**: Environment for frontend dependencies (we suggest using [fnm](https://github.com/Schniz/fnm) to manage Node.js versions).
 

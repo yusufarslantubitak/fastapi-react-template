@@ -1,7 +1,7 @@
 # Build command (run this from the project root):
 # docker build --network host -t backend-builder:latest -f backend/Dockerfile.build .
 
-FROM python:3.14-slim
+FROM python:3.13.12-slim
 
 # Tell uv to build a virtualenv in a dedicated directory /app/.venv
 ENV UV_PROJECT_ENVIRONMENT=/app/.venv
