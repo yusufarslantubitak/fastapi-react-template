@@ -12,6 +12,6 @@ WORKDIR /app/backend
 COPY backend/bin/uv/ /usr/local/bin/
 RUN chmod +x /usr/local/bin/uv /usr/local/bin/uvx
 
-COPY backend/pyproject.toml backend/uv.lock backend/uv.toml ./
+COPY backend/pyproject.toml backend/uv.toml backend/uv.lock* ./
 
-RUN uv sync --frozen --no-dev --no-install-project
+RUN uv sync --no-dev --no-install-project

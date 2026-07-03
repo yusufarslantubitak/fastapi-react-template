@@ -1,40 +1,34 @@
 #!/usr/bin/env bash
 set -e
-set -x
 
-# ==========================================================
-# generate-client.sh — Regenerate the frontend OpenAPI client SDK
-# ==========================================================
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$PROJECT_ROOT"
 
-# Locate uv binary
-if command -v uv &> /dev/null; then
-  UV_CMD="uv"
-else
-  PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-  LOCAL_UV="$PROJECT_ROOT/backend/bin/uv/uv"
-  if [ -f "$LOCAL_UV" ]; then
-    UV_CMD="$LOCAL_UV"
-  else
-    echo "Error: uv is not installed and local copy not found at $LOCAL_UV" >&2
-    exit 1
-  fi
-fi
+echo "Regenerating frontend TypeScript client SDK..."
 
-cd "$(dirname "$0")/.."
+# Ensure builder images exist
+docker compose -f compose.dev.yml build backend frontend
 
-echo "Exporting OpenAPI spec from backend..."
-cd backend
-$UV_CMD run python -c "import app.main; import json; print(json.dumps(app.main.app.openapi()))" > ../frontend/openapi.json
-cd ..
+# Export OpenAPI spec from backend
+docker run --rm \
+  --env-file .env \
+  -v "$PROJECT_ROOT/backend:/app/backend" \
+  -e PYTHONPATH=/app/backend \
+  backend-builder:latest \
+  python -c "import app.main; import json; print(json.dumps(app.main.app.openapi()))" > "$PROJECT_ROOT/frontend/openapi.json"
 
+# Generate TypeScript client SDK
+docker run --rm \
+  -v "$PROJECT_ROOT/frontend:/app/frontend" \
+  -w /app/frontend \
+  frontend-builder:latest \
+  npm run generate-client
 
-echo "Generating TypeScript client..."
-cd frontend
-npm run generate-client
+# Lint the generated code
+docker run --rm \
+  -v "$PROJECT_ROOT/frontend:/app/frontend" \
+  -w /app/frontend \
+  frontend-builder:latest \
+  npm run lint
 
-echo "Linting generated code..."
-npm run lint
-cd ..
-
-echo "Client SDK regenerated."
-
+echo "Done! Client SDK successfully regenerated."
